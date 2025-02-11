@@ -1,4 +1,4 @@
-package com.kodi.catalogo_api.controller.dto;
+package com.kodi.catalogo_api.web.dto;
 
 import lombok.*;
 

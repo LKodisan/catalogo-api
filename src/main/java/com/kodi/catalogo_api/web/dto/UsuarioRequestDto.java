@@ -1,6 +1,8 @@
-package com.kodi.catalogo_api.controller.dto;
+package com.kodi.catalogo_api.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -12,7 +14,9 @@ import java.time.LocalDate;
 @ToString
 public class UsuarioRequestDto {
 
+    @NotBlank
     private String cpf;
+    @NotBlank
     private String senha;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     private LocalDate dataNascimento;

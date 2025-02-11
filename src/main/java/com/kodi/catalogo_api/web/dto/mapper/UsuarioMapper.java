@@ -1,7 +1,7 @@
-package com.kodi.catalogo_api.controller.dto.mapper;
+package com.kodi.catalogo_api.web.dto.mapper;
 
-import com.kodi.catalogo_api.controller.dto.UsuarioRequestDto;
-import com.kodi.catalogo_api.controller.dto.UsuarioResponseDto;
+import com.kodi.catalogo_api.web.dto.UsuarioRequestDto;
+import com.kodi.catalogo_api.web.dto.UsuarioResponseDto;
 import com.kodi.catalogo_api.entity.Usuario;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;

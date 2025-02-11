@@ -1,9 +1,9 @@
-package com.kodi.catalogo_api.controller;
+package com.kodi.catalogo_api.web.controller;
 
 
-import com.kodi.catalogo_api.controller.dto.UsuarioRequestDto;
-import com.kodi.catalogo_api.controller.dto.UsuarioResponseDto;
-import com.kodi.catalogo_api.controller.dto.mapper.UsuarioMapper;
+import com.kodi.catalogo_api.web.dto.UsuarioRequestDto;
+import com.kodi.catalogo_api.web.dto.UsuarioResponseDto;
+import com.kodi.catalogo_api.web.dto.mapper.UsuarioMapper;
 import com.kodi.catalogo_api.entity.Usuario;
 import com.kodi.catalogo_api.service.UsuarioService;
 import jakarta.validation.Valid;
