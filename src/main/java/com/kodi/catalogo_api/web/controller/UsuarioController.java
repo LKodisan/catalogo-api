@@ -10,10 +10,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -22,9 +19,15 @@ public class UsuarioController {
 
     private final UsuarioService usuarioService;
 
-    @PostMapping
+    @PostMapping("/incluir")
     public ResponseEntity<UsuarioResponseDto> criarUsuario(@Valid @RequestBody UsuarioRequestDto dto) {
         Usuario user = usuarioService.criarUsuario(UsuarioMapper.toUsuario(dto));
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
+    }
+
+    @GetMapping("/listar/{id}")
+    public ResponseEntity<UsuarioResponseDto> listarUsuario(@PathVariable Long id){
+        Usuario user = usuarioService.listarUsuario(id);
+        return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
 }
