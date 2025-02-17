@@ -6,6 +6,9 @@ import com.kodi.catalogo_api.entity.Usuario;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class UsuarioMapper {
 
     public static Usuario toUsuario(UsuarioRequestDto requestDto) {
@@ -16,5 +19,11 @@ public class UsuarioMapper {
         ModelMapper mapperMain = new ModelMapper();
         TypeMap<Usuario, UsuarioResponseDto> propertyMapper = mapperMain.createTypeMap(Usuario.class, UsuarioResponseDto.class);
         return mapperMain.map(usuario, UsuarioResponseDto.class);
+    }
+
+    public static List<UsuarioResponseDto> toListDto(List<Usuario> usuario) {
+        return usuario.stream().map(
+                 user -> toDto(user)
+        ).collect(Collectors.toList());
     }
 }

@@ -35,4 +35,11 @@ public class UsuarioService {
                 () -> new EntityNotFoundException(String.format("Usuário não encontrado.", id))
         );
     }
+
+    @Transactional(readOnly = true)
+    public List<Usuario> listarTodosUsuarios() {
+        return usuarioRepository.findAll().stream().toList();
+    }
+
+
 }

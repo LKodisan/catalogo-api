@@ -12,6 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "api/usuarios")
@@ -26,8 +28,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/listar/{id}")
-    public ResponseEntity<UsuarioResponseDto> listarUsuario(@PathVariable Long id){
+    public ResponseEntity<UsuarioResponseDto> listarUsuario(@PathVariable Long id) {
         Usuario user = usuarioService.listarUsuario(id);
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
+    }
+
+    @GetMapping("/listarTodos")
+    public ResponseEntity<List<UsuarioResponseDto>> listarTodosUsuarios() {
+        List<Usuario> user = usuarioService.listarTodosUsuarios();
+        return ResponseEntity.ok(UsuarioMapper.toListDto(user));
     }
 }
