@@ -3,6 +3,7 @@ package com.kodi.catalogo_api.web.controller;
 
 import com.kodi.catalogo_api.web.dto.UsuarioRequestDto;
 import com.kodi.catalogo_api.web.dto.UsuarioResponseDto;
+import com.kodi.catalogo_api.web.dto.UsuarioUpdateRequestDto;
 import com.kodi.catalogo_api.web.dto.mapper.UsuarioMapper;
 import com.kodi.catalogo_api.entity.Usuario;
 import com.kodi.catalogo_api.service.UsuarioService;
@@ -10,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,5 +39,11 @@ public class UsuarioController {
     public ResponseEntity<List<UsuarioResponseDto>> listarTodosUsuarios() {
         List<Usuario> user = usuarioService.listarTodosUsuarios();
         return ResponseEntity.ok(UsuarioMapper.toListDto(user));
+    }
+    @PatchMapping("/editarSenha/{id}")
+    public ResponseEntity<UsuarioResponseDto> editarSenha(@PathVariable Long id,
+                                                          @Valid @RequestBody UsuarioUpdateRequestDto dto) {
+        Usuario user = usuarioService.editarSenha(id, dto);
+        return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
 }

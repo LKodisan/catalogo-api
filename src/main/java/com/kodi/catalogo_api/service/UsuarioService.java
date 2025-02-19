@@ -3,7 +3,9 @@ package com.kodi.catalogo_api.service;
 import com.kodi.catalogo_api.entity.Usuario;
 import com.kodi.catalogo_api.exception.CpfUniqueViolationException;
 import com.kodi.catalogo_api.exception.EntityNotFoundException;
+import com.kodi.catalogo_api.exception.PasswordInvalidException;
 import com.kodi.catalogo_api.repository.UsuarioRepository;
+import com.kodi.catalogo_api.web.dto.UsuarioUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,5 +43,19 @@ public class UsuarioService {
         return usuarioRepository.findAll().stream().toList();
     }
 
+    @Transactional
+    public Usuario editarSenha(Long id, UsuarioUpdateRequestDto dto) {
 
+        Usuario user = listarUsuario(id);
+
+        if (!user.getSenha().equals(dto.getSenhaAtual())) {
+            throw new PasswordInvalidException(String.format("Sua senha não confere."));
+        }
+        if (!dto.getNovaSenha().equals(dto.getConfirmaSenha())) {
+            throw new PasswordInvalidException(String.format("Nova senha não confere com confirmação de senha."));
+        }
+
+        user.setSenha(dto.getNovaSenha());
+        return user;
+    }
 }
