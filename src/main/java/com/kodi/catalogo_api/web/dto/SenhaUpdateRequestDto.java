@@ -2,7 +2,7 @@ package com.kodi.catalogo_api.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -12,12 +12,15 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class UsuarioRequestDto {
+public class SenhaUpdateRequestDto {
 
     @NotBlank
-    private String cpf;
+    @Size(min = 8, max = 16)
+    private String senhaAtual;
     @NotBlank
-    private String senha;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    private LocalDate dataNascimento;
+    @Size(min = 8, max = 16)
+    private String novaSenha;
+    @NotBlank
+    @Size(min = 8, max = 16)
+    private String confirmaSenha;
 }

@@ -2,14 +2,17 @@ package com.kodi.catalogo_api.service;
 
 import com.kodi.catalogo_api.entity.Usuario;
 import com.kodi.catalogo_api.exception.CpfUniqueViolationException;
+import com.kodi.catalogo_api.exception.DateTimeInvalidException;
 import com.kodi.catalogo_api.exception.EntityNotFoundException;
 import com.kodi.catalogo_api.exception.PasswordInvalidException;
 import com.kodi.catalogo_api.repository.UsuarioRepository;
-import com.kodi.catalogo_api.web.dto.UsuarioUpdateRequestDto;
+import com.kodi.catalogo_api.web.dto.DataNascimentoUpdateRequestDto;
+import com.kodi.catalogo_api.web.dto.SenhaUpdateRequestDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.management.RuntimeErrorException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -44,7 +47,7 @@ public class UsuarioService {
     }
 
     @Transactional
-    public Usuario editarSenha(Long id, UsuarioUpdateRequestDto dto) {
+    public Usuario editarSenha(Long id, SenhaUpdateRequestDto dto) {
 
         Usuario user = listarUsuario(id);
 
@@ -57,5 +60,19 @@ public class UsuarioService {
 
         user.setSenha(dto.getNovaSenha());
         return user;
+    }
+
+    @Transactional
+    public Usuario editarDataNascimento(Long id, DataNascimentoUpdateRequestDto dto) {
+
+        Usuario user = listarUsuario(id);
+
+        if (dto.getDataNascimento().isAfter(LocalDate.now())) {
+            throw new DateTimeInvalidException("Data de Nascimento não pode ser superior a data de hoje.");
+        }
+
+        user.setDataNascimento(dto.getDataNascimento());
+        return user;
+
     }
 }

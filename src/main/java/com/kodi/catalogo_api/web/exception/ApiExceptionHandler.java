@@ -1,6 +1,7 @@
 package com.kodi.catalogo_api.web.exception;
 
 import com.kodi.catalogo_api.exception.CpfUniqueViolationException;
+import com.kodi.catalogo_api.exception.DateTimeInvalidException;
 import com.kodi.catalogo_api.exception.EntityNotFoundException;
 import com.kodi.catalogo_api.exception.PasswordInvalidException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -41,6 +42,17 @@ public class ApiExceptionHandler {
 
     @ExceptionHandler(PasswordInvalidException.class)
     public ResponseEntity<ErrorMessage> passwordInvalidException(
+            RuntimeException ex,
+            HttpServletRequest request) {
+        log.error("Api Error - ", ex);
+        return ResponseEntity
+                .status(HttpStatus.BAD_REQUEST)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(new ErrorMessage(request, HttpStatus.BAD_REQUEST, ex.getMessage()));
+    }
+
+    @ExceptionHandler(DateTimeInvalidException.class)
+    public ResponseEntity<ErrorMessage> dateTimeInvalidException(
             RuntimeException ex,
             HttpServletRequest request) {
         log.error("Api Error - ", ex);

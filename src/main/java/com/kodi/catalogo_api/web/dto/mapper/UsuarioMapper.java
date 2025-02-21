@@ -1,6 +1,6 @@
 package com.kodi.catalogo_api.web.dto.mapper;
 
-import com.kodi.catalogo_api.web.dto.UsuarioRequestDto;
+import com.kodi.catalogo_api.web.dto.UsuarioCreateRequestDto;
 import com.kodi.catalogo_api.web.dto.UsuarioResponseDto;
 import com.kodi.catalogo_api.entity.Usuario;
 import org.modelmapper.ModelMapper;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class UsuarioMapper {
 
-    public static Usuario toUsuario(UsuarioRequestDto requestDto) {
+    public static Usuario toUsuario(UsuarioCreateRequestDto requestDto) {
         return new ModelMapper().map(requestDto, Usuario.class);
     }
 

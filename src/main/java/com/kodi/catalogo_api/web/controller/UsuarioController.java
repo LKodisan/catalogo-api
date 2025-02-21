@@ -1,9 +1,10 @@
 package com.kodi.catalogo_api.web.controller;
 
 
-import com.kodi.catalogo_api.web.dto.UsuarioRequestDto;
+import com.kodi.catalogo_api.web.dto.DataNascimentoUpdateRequestDto;
+import com.kodi.catalogo_api.web.dto.UsuarioCreateRequestDto;
 import com.kodi.catalogo_api.web.dto.UsuarioResponseDto;
-import com.kodi.catalogo_api.web.dto.UsuarioUpdateRequestDto;
+import com.kodi.catalogo_api.web.dto.SenhaUpdateRequestDto;
 import com.kodi.catalogo_api.web.dto.mapper.UsuarioMapper;
 import com.kodi.catalogo_api.entity.Usuario;
 import com.kodi.catalogo_api.service.UsuarioService;
@@ -11,7 +12,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @PostMapping("/incluir")
-    public ResponseEntity<UsuarioResponseDto> criarUsuario(@Valid @RequestBody UsuarioRequestDto dto) {
+    public ResponseEntity<UsuarioResponseDto> criarUsuario(@Valid @RequestBody UsuarioCreateRequestDto dto) {
         Usuario user = usuarioService.criarUsuario(UsuarioMapper.toUsuario(dto));
         return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioMapper.toDto(user));
     }
@@ -42,8 +42,14 @@ public class UsuarioController {
     }
     @PatchMapping("/editarSenha/{id}")
     public ResponseEntity<UsuarioResponseDto> editarSenha(@PathVariable Long id,
-                                                          @Valid @RequestBody UsuarioUpdateRequestDto dto) {
+                                                          @Valid @RequestBody SenhaUpdateRequestDto dto) {
         Usuario user = usuarioService.editarSenha(id, dto);
+        return ResponseEntity.ok(UsuarioMapper.toDto(user));
+    }
+    @PatchMapping("/editarDataNascimento/{id}")
+    public ResponseEntity<UsuarioResponseDto> editarDataNascimento(@PathVariable Long id,
+                                                                   @Valid @RequestBody DataNascimentoUpdateRequestDto dto) {
+        Usuario user = usuarioService.editarDataNascimento(id, dto);
         return ResponseEntity.ok(UsuarioMapper.toDto(user));
     }
 }
